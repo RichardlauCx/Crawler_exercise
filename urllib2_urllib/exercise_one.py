@@ -4,7 +4,7 @@ from urllib.request import urlopen
 
 
 def urllib_request():
-    response = urllib.request.urlopen('http://www.baidu.com')
+    response = request.urlopen('http://www.baidu.com')
     html = response.read()
     print(html)
 
@@ -31,6 +31,18 @@ def simulation_on():
     url = 'https://passport.csdn.net/account/login?from=http://my.csdn.net/my/mycsdn'
     values = {'username': '13848254287', 'password': 'xxx'}  # 拟登陆CSDN网站
     data = parse.urlencode(values).encode('utf-8')  # 提交类型不能为str，需要为byte类型
-    request = request.Request(url, data)
+    request = urllib.request.Request(url, data)
     response = urlopen(request)  # 向指定的url发出请求来获取数据
     print(response.read().decode())
+
+
+def proxy_set():
+    proxy = request.ProxyHandler({'http': '127.0.0.1:8087'})
+    opener = request.build_opener([proxy, ])
+    request.install_opener(opener)
+    response = urlopen('http://www.zhihu.com/')
+    print(response.read)
+
+
+if __name__ == '__main__':
+    proxy_set()

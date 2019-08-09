@@ -63,8 +63,35 @@ def redirect():
     print(isRedirected)  # if True 则未发生重定向
 
 
+# class RedirectHandler(urllib.request.HTTPRedirectHandler.http_error_301):
+def http_error_301(self, req, fp, code, msg, headers):
+    pass
+
+def http_error_302(self, req, fp, code, msg, headers):
+    result = urllib.request.HTTPRedirectHandler.http_error_301(self, req, fp, code, msg, headers)
+    result.status = code
+    result.new_url = result.geturl()
+    return result
+
+
+def proxy_set():
+    proxy = urllib.request.ProxyHandler({'http': '127.0.0.1:8087'})
+    # opener = urllib.request.build_opener([proxy],)
+    opener = urllib.request.build_opener(proxy,)
+    # urllib.request.install_opener(opener)
+    # response = opener.open("http://www/zhihu.com/")
+    response = urlopen('http://www.zhihu.com/')
+    print(response.read)
+
+
+
 if __name__ == '__main__':
+    # opener = urllib.request.build_opener(RedirectHandler)
+    # opener.open('http://www.zhihu.cn')
+    # open_e = RedirectHandler()
+    # print(str(open_e.http_error_302()))
+    proxy_set()
     # cookie_dispose()
     # timeout()
-    http_response_code()
+    # http_response_code()
     # redirect()
