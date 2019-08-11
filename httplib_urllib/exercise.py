@@ -44,3 +44,14 @@ conn = None
 try:
     params = urllib.urlencode({'name': 'Richard', 'age': 22})
     headers = {"Content - type": "application/x-www-form-urlencoded", "Accept": "text/plain"}
+    conn = httplib.HTTPConnection("www.zhihu.com", 80, timeout = 3)
+    conn.request("POST", "/login", parame, headers)
+    response = conn.getresponse()
+    print(response.getheaders())  # 获取头信息
+    print(response.status)
+    print(response.read())
+except Exception, e:
+    print(e)
+finally:
+    if conn:
+        conn.close()
