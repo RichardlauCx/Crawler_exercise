@@ -84,7 +84,6 @@ def proxy_set():
     print(response.read)
 
 
-
 if __name__ == '__main__':
     # opener = urllib.request.build_opener(RedirectHandler)
     # opener.open('http://www.zhihu.cn')
