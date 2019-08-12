@@ -85,9 +85,22 @@ def redirect_history():
     print(r.history)
 
 
+def timeout_set():
+    requests.get('http://wwww.github.com', timeout=2)
+
+
+def proxy_set():
+    proxies = {"http": "http://0.10.0.10:3128",
+               "https": "http://10.10.1.10:1080"}
+    requests.get("http://example.org", proxies=proxies)
+    proxies = {"http": "http://user:pass@10.10.1.10:3128/"}
+
+
 if __name__ == '__main__':
     # response_coding()
     # headers_dispose()
     # code_headers()
     # cookie_dispose()
-    redirect_history()
+    # redirect_history()
+    timeout_set()
+    proxy_set()
