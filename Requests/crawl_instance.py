@@ -4,6 +4,8 @@
 #  @ file   : Richard.py
 #  @ IDE    : PyCharm
 
+import os
+import random
 import requests
 
 
@@ -60,7 +62,24 @@ def search_engine():
         print("爬取网页失败")
 
 
+def images_crawl():
+    url = "http://image.nationalgeographic.com.cn/2017/0211/20170211061910157.jpg"
+    root = r"F:\Computer\Computer_Python\Crawler_exercise\Crawler_images/"
+    # path = root + str(random.randint(0, 1000)) + ".jpg"
+    path = root + url.split('/')[-1]
+    try:
+        if not os.path.exists(root):
+            os.mkdir(root)
+
+    response = requests.get(url)
+    print(response.status_code)
+    with open(path, 'wb') as file_object:  # binary
+        file_object.write(response.content)  # 二进制文本信息
+    file_object.close()
+
+
 if __name__ == '__main__':
     # jingdong_mall()
     # amazon_products()
-    search_engine()
+    # search_engine()
+    images_crawl()
