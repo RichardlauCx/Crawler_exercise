@@ -68,14 +68,19 @@ def images_crawl():
     # path = root + str(random.randint(0, 1000)) + ".jpg"
     path = root + url.split('/')[-1]
     try:
-        if not os.path.exists(root):
+        if not os.path.exists(root):  # 查看路劲是否存在
             os.mkdir(root)
-
-    response = requests.get(url)
-    print(response.status_code)
-    with open(path, 'wb') as file_object:  # binary
-        file_object.write(response.content)  # 二进制文本信息
-    file_object.close()
+        if not os.path.exists(path):  # 查看特定文件是否存在
+            response = requests.get(url)
+            print(response.status_code)
+            with open(path, 'wb') as file_object:  # binary
+                file_object.write(response.content)  # 二进制文本信息
+                file_object.close()
+                print('文件已经成功保存！')
+        else:
+            print('此文件已经存在')
+    except:
+        print('数据爬取失败')
 
 
 if __name__ == '__main__':
