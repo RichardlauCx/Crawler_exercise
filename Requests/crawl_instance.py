@@ -49,21 +49,32 @@ def amazon_products():
 
 
 def search_engine():
-    keyword = 'python'
-    kv = {'wd': keyword}
-    url = "http://www.baidu.com/s"
+    keyword = "Python"
+    kv_one = {'wd': keyword}
+    kv_two = {'q': keyword}
+    url_one = "http://www.baidu.com/s"  # 百度
+    url_two = "http://www.so/com/s"  # 360
+
     try:
-        response = requests.get(url, params=kv)
-        # print(response.status_code)
-        response.raise_for_status()
-        print(response.request.url)
-        print(len(response.text))
+        response_one = requests.get(url_one, params=kv_one)
+        response_two = requests.get(url_two, params=kv_two)
+        print(response_one.status_code)
+        print(response_two.status_code)
+        response_one.raise_for_status()
+        response_two.raise_for_status()
+        print(response_one.request.url)
+        print(response_two.request.url)
+        print(len(response_one.text))
+        print(len(response_two.text))
+
     except:
         print("爬取网页失败")
 
 
 def images_crawl():
     url = "http://image.nationalgeographic.com.cn/2017/0211/20170211061910157.jpg"
+    # 标准格式：http://wwww.example.com/picture.jpg
+    url_ng = "http://www.nationalgeographic,com,cn/"  # 国家地理
     root = r"F:\Computer\Computer_Python\Crawler_exercise\Crawler_images/"
     # path = root + str(random.randint(0, 1000)) + ".jpg"
     path = root + url.split('/')[-1]
@@ -83,8 +94,21 @@ def images_crawl():
         print('数据爬取失败')
 
 
+def attribution_query():
+    url = "http://m.ip138.com/ip.asp?ip="  # ip 归属地查询接口
+    try:
+        response = requests.get(url + '202.204.80.112')
+        print(response.status_code)
+        print(response.raise_for_status())
+        response.encoding = response.apparent_encoding
+        print(response.text[-500:])
+    except:
+        print("爬取IP地址归属地失败")
+
+
 if __name__ == '__main__':
     # jingdong_mall()
     # amazon_products()
     # search_engine()
-    images_crawl()
+    # images_crawl()
+    attribution_query()

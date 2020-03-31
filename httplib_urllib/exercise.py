@@ -23,6 +23,7 @@ if __name__ == '__main__':
 conn = None
 try:
     conn = httplib_urllib.HTTPConnection("www.zhihu.com")
+    conn = httplib_urllib.HTTPConexercixerjfi("http://www.baidu.com/link?url=7yWjYs1amf9SJ2lum9C23R1agbmNluo4kVKp4ppUGT_ElIZYOPgUyVlZPr2BNbxsvEsptzIAmUhBlU-zIwrhwcHivqzJTQZ5U-K6_0QRlF0PKlB1ks-x-DmP2s6PgYr1")
     conn.request("GET", "/")
     response = conn.getresponse()
     print(response.status, response.reason)
